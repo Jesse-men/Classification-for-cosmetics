@@ -5,6 +5,7 @@ Requirement list:
                 import matplotlib_inline
                 import pandas
                 install IPython 
+                import seaborn
                 install nltk 
                 install gensim
                 install urllib
