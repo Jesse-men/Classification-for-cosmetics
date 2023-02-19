@@ -1,27 +1,26 @@
 #!/usr/bin/env python
 # coding: utf-8
 from gettext import install
-
 import matplotlib
 import matplotlib_inline
 import pandas as pd
 from IPython import get_ipython
 from nbformat.v1 import upgrade
+import seaborn as sns
+import re
+from nltk.corpus import stopwords
+from nltk.stem.wordnet import WordNetLemmatizer
+from gensim.models import Word2Vec
+from urllib import request, parse
+import json
 
 if not get_ipython() == None:
     assert isinstance(get_ipython().run_line_magic, matplotlib, matplotlib_inline)
 
-import seaborn as sns
-
 sns.set_style("darkgrid")
 
-import re
-from nltk.corpus import stopwords
-from nltk.stem.wordnet import WordNetLemmatizer
 
-from gensim.models import Word2Vec
-
-df = pd.read_csv('/Users/13121510983163.com/Desktop/KOL/Product-Categorization-NLP-master/data/products_final.csv',
+df = pd.read_csv('../products_final.csv',
                  header=0, index_col=0)
 text = df.drop(['product_type', 'currency', 'id', 'price', 'price_sign', 'rating', 'brand', 'category'], axis=1)
 
@@ -77,10 +76,6 @@ dict3 = dict(res3)
 list1 = list(dict1.keys())
 list2 = list(dict2.keys())
 list3 = list(dict3.keys())
-print('liner:', list1, '\n', 'eyeshadow:', list2, '\n', 'mascara:', list3)
-
-from urllib import request, parse
-import json
 
 
 def fy(i):
@@ -111,4 +106,6 @@ def fy(i):
 tra1 = fy(list1)
 tra2 = fy(list2)
 tra3 = fy(list3)
-print(' 眼线笔:', tra1, '\n', '眼影:', tra2, '\n', '睫毛膏:', tra3)
+
+d3 = {'眼线笔': tra1, '眼影': tra2, '睫毛膏': tra3}
+print(d3)
