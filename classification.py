@@ -106,7 +106,7 @@ def fy(i):
 
 names = [row.split() for row in text['name']]
 list_1 = [str(x) for item in names for x in item]
-list_2=tuple(list_1)
+list_2 = tuple(list_1)
 
 
 def build_dict(list_2):
@@ -133,14 +133,14 @@ def build_dict(list_2):
 
 word2id_freq, word2id_dict, id2word_dict = build_dict(list_2)
 vocab_size = len(word2id_freq)
-for _, (word, word_id) in zip(range(10), word2id_dict.items()):
-    tra = fy(word)
-    print(' 搜索量最高的化妆品排序:', tra)
-
+for _, (word, word_id) in zip(range(500), word2id_dict.items()):
+    a = "睫毛膏%s, 点击率 %d" % ('mascara', word2id_freq[1])
+    b = "眼线笔%s, 点击率 %d" % ('eyeliner', word2id_freq[5])
+    c = "眼影%s, 点击率 %d" % ('eyeshadow', word2id_freq[65])
 
 tra1 = fy(list1)
 tra2 = fy(list2)
 tra3 = fy(list3)
 
-d3 = {'眼线笔': tra1, '眼影': tra2, '睫毛膏': tra3}
-print(d3)
+d3 = {'睫毛膏': tra1, '眼线笔': tra2, '眼影': tra3}
+print('order:', a, b, c, '\n', 'keywords:', d3)
