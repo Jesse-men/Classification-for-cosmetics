@@ -63,6 +63,7 @@ def word_lem(text):
 
 # ## Model creation
 # ### Word2vec model for description
+sentences = [row.split() for row in text['description']]
 model = Word2Vec(sentences, min_count=1, vector_size=100, window=3)
 
 # This will print the most similar words present in the model:
@@ -101,6 +102,40 @@ def fy(i):
     translate_results = json.loads(html)  # 以json格式载入
     translate_results = translate_results['translateResult'][0][0]['tgt']  # json格式调取
     return translate_results
+
+
+names = [row.split() for row in text['name']]
+list_1 = [str(x) for item in names for x in item]
+list_2=tuple(list_1)
+
+
+def build_dict(list_2):
+    word_freq_dict = dict()
+    for word in list_2:
+        if word not in word_freq_dict:
+            word_freq_dict[word] = 0
+        word_freq_dict[word] += 1
+
+    word_freq_dict = sorted(word_freq_dict.items(), key = lambda x:x[1], reverse = True)
+
+    word2id_dict = dict()
+    word2id_freq = dict()
+    id2word_dict = dict()
+
+    for word, freq in word_freq_dict:
+        curr_id = len(word2id_dict)
+        word2id_dict[word] = curr_id
+        word2id_freq[word2id_dict[word]] = freq
+        id2word_dict[curr_id] = word
+
+    return word2id_freq, word2id_dict, id2word_dict
+
+
+word2id_freq, word2id_dict, id2word_dict = build_dict(list_2)
+vocab_size = len(word2id_freq)
+for _, (word, word_id) in zip(range(10), word2id_dict.items()):
+    tra = fy(word)
+    print(' 搜索量最高的化妆品排序:', tra)
 
 
 tra1 = fy(list1)
