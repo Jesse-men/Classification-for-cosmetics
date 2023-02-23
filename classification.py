@@ -67,9 +67,9 @@ sentences = [row.split() for row in text['description']]
 model = Word2Vec(sentences, min_count=1, vector_size=100, window=3)
 
 # This will print the most similar words present in the model:
-res1 = model.wv.most_similar('liner')
-res2 = model.wv.most_similar('eyeshadow')
-res3 = model.wv.most_similar('mascara')
+res1=model.wv.most_similar('mascara')
+res2=model.wv.most_similar('eyeliner')
+res3=model.wv.most_similar('eyeshadow')
 
 dict1 = dict(res1)
 dict2 = dict(res2)
@@ -134,13 +134,28 @@ def build_dict(list_2):
 word2id_freq, word2id_dict, id2word_dict = build_dict(list_2)
 vocab_size = len(word2id_freq)
 for _, (word, word_id) in zip(range(500), word2id_dict.items()):
-    a = "睫毛膏%s, 点击率 %d" % ('mascara', word2id_freq[1])
-    b = "眼线笔%s, 点击率 %d" % ('eyeliner', word2id_freq[5])
-    c = "眼影%s, 点击率 %d" % ('eyeshadow', word2id_freq[65])
+    a="睫毛膏%s" %('mascara')
+    b="%d" % (word2id_freq[1])
+    c="眼线笔%s" %('eyeliner')
+    d="%d" % (word2id_freq[5])
+    e="眼影%s" %('eyeshadow')
+    f="%d" % (word2id_freq[65])
 
 tra1 = fy(list1)
+tra1 = tra1.replace('[', '').replace(')', '')
 tra2 = fy(list2)
+tra2 = tra2.replace('[', '').replace(')', '')
 tra3 = fy(list3)
+tra3 = tra3.replace('[', '').replace(')', '')
 
-d3 = {'睫毛膏': tra1, '眼线笔': tra2, '眼影': tra3}
-print('order:', a, b, c, '\n', 'keywords:', d3)
+tralist1 = tra1.split()
+tralist2 = tra2.split()
+tralist3 = tra3.split()
+
+d1 = {'product_1': a,'hits': b}
+d2 = {'product_2': c,'hits': d}
+d3 = {'product_3': e,'hits': f}
+d4 = [d1,d2,d3]
+d5 = {'睫毛膏': tralist1, '眼线笔': tralist2, '眼影': tralist3}
+d = {'order': d4, 'keywords': d5}
+print(d)
